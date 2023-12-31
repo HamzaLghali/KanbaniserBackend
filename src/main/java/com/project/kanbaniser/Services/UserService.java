@@ -20,7 +20,6 @@ import java.util.List;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final TaskRepository taskRepository;
 	private final BoardRepository boardRepository;
 
 
@@ -41,21 +40,6 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	//ajouter tache a un utilisateur
-	public void addTaskToUser(int userId, Task task, int boardId) {
-		Board board = boardRepository.findById(boardId)
-				.orElseThrow(() -> new BadRequestException("Board not found"));
-		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new UserNotFoundException("User not found"));
-		if (!board.getMembers().contains(user)){
-			throw new BadRequestException("User not member of this borad");
-		}
-
-		task.setCreatedBy(user);
-		task.setBoard(board);
-		taskRepository.save(task);
-
-	}
 
 	//modifier un utilisateur
 	public void updateUser(int id, User user) {

@@ -27,8 +27,11 @@ public class User {
 
 	private String password;
 
+	@ManyToMany(mappedBy = "members")
+	private List<Board> boards;
+
 	@OneToMany(mappedBy = "createdBy")
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<>();
 
 
 }

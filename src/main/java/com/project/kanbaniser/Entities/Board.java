@@ -1,17 +1,18 @@
 package com.project.kanbaniser.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Board {
 
 	@Id
@@ -28,8 +29,8 @@ public class Board {
 			joinColumns = @JoinColumn(name = "Boardid"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
-	private List<User> members;
+	private List<User> members = new ArrayList<>();
 
-	@OneToMany(mappedBy = "board")
-	private List<Task> tasks;
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Task> tasks = new ArrayList<>();
 }

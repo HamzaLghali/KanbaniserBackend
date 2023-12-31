@@ -24,10 +24,11 @@ public class Task {
 
 	private Date createdAt;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "createdBy")
 	private User createdBy;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "board_id")
 	private Board board;
 }
