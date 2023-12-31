@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TaskService {
@@ -68,6 +70,17 @@ public class TaskService {
 				.orElseThrow(() -> new BoardNotFoundException("Board not found"));
 		task.setBoard(board);
 		taskRepository.save(task);
+	}
+
+	//get all tasks
+	public List<Task> getAllTasks() {
+		return taskRepository.findAll();
+	}
+
+	//get task by id
+	public Task getTaskById(int id) {
+		return taskRepository.findById(id)
+				.orElseThrow(() -> new TaskNotFoundException("Task with id "+id+" does not exist"));
 	}
 
 

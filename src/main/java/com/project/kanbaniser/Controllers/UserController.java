@@ -1,5 +1,7 @@
 package com.project.kanbaniser.Controllers;
 
+import com.project.kanbaniser.Entities.Board;
+import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Entities.User;
 import com.project.kanbaniser.Services.UserService;
 import lombok.AllArgsConstructor;
@@ -50,5 +52,17 @@ public class UserController {
 	@GetMapping(path = "{userEmail}")
 	public User getUserByEmail(@PathVariable("userEmail") String email) {
 		return userService.getUserByEmail(email);
+	}
+
+	//liste des boards d'un utilisateur
+	@GetMapping(path = "{userId}/boards")
+	public List<Board> getBoardsByUserId(@PathVariable("userId") int id) {
+		return userService.getBoardsByUserId(id);
+	}
+
+	//liste des taches d'un utilisateur
+	@GetMapping(path = "{userId}/tasks")
+	public List<Task> getTasksByUserId(@PathVariable("userId") int id) {
+		return userService.getTasksByUserId(id);
 	}
 }
