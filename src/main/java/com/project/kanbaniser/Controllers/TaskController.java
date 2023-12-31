@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping(path = "/api/v1/tasks")
+@RestController("/api/v1/tasks")
 @AllArgsConstructor
 public class TaskController {
 

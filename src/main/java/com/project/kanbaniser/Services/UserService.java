@@ -16,7 +16,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-@Transactional
 public class UserService {
 
 	private final UserRepository userRepository;

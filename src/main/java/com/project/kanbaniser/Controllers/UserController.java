@@ -5,64 +5,63 @@ import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Entities.User;
 import com.project.kanbaniser.Services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping(path = "/api/v1/user")
+@RestController("/api/v1/users")
 @AllArgsConstructor
 public class UserController {
 
 	private final UserService userService;
 
 
-	//lister les utilisateurs
 	@GetMapping
-	public List<User> getAllUsers() {
-		return userService.getAllUsers();
+	public ResponseEntity<List<User>> getAllUsers() {
+		List<User> users = userService.getAllUsers();
+		return ResponseEntity.ok(users);
 	}
 
-	//ajouter un utilisateur
 	@PostMapping
-	public void addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@RequestBody User user) {
 		userService.addUser(user);
+		return ResponseEntity.ok(user);
 	}
 
-	//modifier un utilisateur
-	@PutMapping(path = "{userId}")
-	public void updateUser(@PathVariable("userId") int id, @RequestBody User user) {
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> updateUser(@PathVariable int id, @RequestBody User user) {
 		userService.updateUser(id, user);
+		return ResponseEntity.ok().build();
 	}
 
-	//supprimer un utilisateur
-	@DeleteMapping(path = "{userId}")
-	public void deleteUser(@PathVariable("userId") int id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable int id) {
 		userService.deleteUser(id);
+		return ResponseEntity.ok().build();
 	}
 
-	//rechercher un utilisateur par id
-	@GetMapping(path = "{userId}")
-	public User getUserById(@PathVariable("userId") int id) {
-		return userService.getUserById(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable int id) {
+		User user = userService.getUserById(id);
+		return ResponseEntity.ok(user);
 	}
 
-	//rechercher un utilisateur par email
-	@GetMapping(path = "{userEmail}")
-	public User getUserByEmail(@PathVariable("userEmail") String email) {
-		return userService.getUserByEmail(email);
+	@GetMapping("/email/{email}")
+	public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+		User user = userService.getUserByEmail(email);
+		return ResponseEntity.ok(user);
 	}
 
-	//liste des boards d'un utilisateur
-	@GetMapping(path = "{userId}/boards")
-	public List<Board> getBoardsByUserId(@PathVariable("userId") int id) {
-		return userService.getBoardsByUserId(id);
+	@GetMapping("/{id}/boards")
+	public ResponseEntity<List<Board>> getBoardsByUserId(@PathVariable int id) {
+		List<Board> boards = userService.getBoardsByUserId(id);
+		return ResponseEntity.ok(boards);
 	}
 
-	//liste des taches d'un utilisateur
-	@GetMapping(path = "{userId}/tasks")
-	public List<Task> getTasksByUserId(@PathVariable("userId") int id) {
-		return userService.getTasksByUserId(id);
+	@GetMapping("/{id}/tasks")
+	public ResponseEntity<List<Task>> getTasksByUserId(@PathVariable int id) {
+		List<Task> tasks = userService.getTasksByUserId(id);
+		return ResponseEntity.ok(tasks);
 	}
 }

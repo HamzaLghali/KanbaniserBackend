@@ -3,7 +3,6 @@ package com.project.kanbaniser.Services;
 import com.project.kanbaniser.Entities.Board;
 import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Entities.User;
-import com.project.kanbaniser.Exceptions.BadRequestException;
 import com.project.kanbaniser.Exceptions.BoardNotFoundException;
 import com.project.kanbaniser.Exceptions.TaskNotFoundException;
 import com.project.kanbaniser.Exceptions.UserNotFoundException;
@@ -25,8 +24,7 @@ public class BoardService {
 	private final UserRepository userRepository;
 	private final TaskRepository taskRepository;
 
-	//ajouter un utilisateur
-	public void addUser(Board board) {
+	public void addBoard(Board board) {
 		boardRepository.save(board);
 	}
 
