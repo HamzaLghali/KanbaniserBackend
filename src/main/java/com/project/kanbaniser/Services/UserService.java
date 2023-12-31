@@ -36,7 +36,6 @@ public class UserService {
 		if (existsEmail){
 			throw new BadRequestException("Email already exists"+user.getEmail());
 		}
-
 		userRepository.save(user);
 	}
 
