@@ -28,4 +28,6 @@ public class Task {
 	@JoinColumn(name = "createdBy")
 	private User createdBy;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Board board;
 }

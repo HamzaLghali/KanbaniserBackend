@@ -1,7 +1,10 @@
 package com.project.kanbaniser.Services;
 
+import com.project.kanbaniser.Entities.Board;
+import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Entities.User;
 import com.project.kanbaniser.Exceptions.UserNotFoundException;
+import com.project.kanbaniser.Repositories.BoardRepository;
 import com.project.kanbaniser.Repositories.TaskRepository;
 import com.project.kanbaniser.Repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,7 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final TaskRepository taskRepository;
+	private final BoardRepository boardRepository;
 
 
 	//liste des utilisateurs
@@ -38,7 +42,18 @@ public class UserService {
 	}
 
 	//ajouter tache a un utilisateur
-	public void addTaskToUser(int userId, int taskId) {
+	public void addTaskToUser(int userId, Task task, int boardId) {
+		Board board = boardRepository.findById(boardId)
+				.orElseThrow(() -> new BadRequestException("Board not found"));
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new UserNotFoundException("User not found"));
+		if (!board.getMembers().contains(user)){
+			throw new BadRequestException("User not member of this borad");
+		}
+
+		task.setCreatedBy(user);
+		task.setBoard(board);
+		taskRepository.save(task);
 
 	}
 

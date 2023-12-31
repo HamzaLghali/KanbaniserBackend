@@ -22,7 +22,12 @@ public class Board {
 
 	private String description;
 
-	@OneToMany(mappedBy = "board")
+	@ManyToMany
+	@JoinTable(
+			name="board_members",
+			joinColumns = @JoinColumn(name = "Boardid"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
 	private List<User> members;
 
 	@OneToMany(mappedBy = "board")
