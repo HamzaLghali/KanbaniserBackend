@@ -4,18 +4,18 @@ import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api/v1/tasks")
+@RestController
+@RequestMapping("/api/v1/tasks")
 @AllArgsConstructor
 public class TaskController {
 
 	private final TaskService taskService;
 
-	@PostMapping("/create")
+	@PostMapping("/createTask")
 	public ResponseEntity<Task> createTask(@RequestBody Task task) {
 		taskService.createTask(task);
 		return ResponseEntity.ok(task);
