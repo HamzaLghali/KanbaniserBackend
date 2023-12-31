@@ -2,18 +2,22 @@ package com.project.kanbaniser.Services;
 
 import com.project.kanbaniser.Entities.User;
 import com.project.kanbaniser.Exceptions.UserNotFoundException;
+import com.project.kanbaniser.Repositories.TaskRepository;
 import com.project.kanbaniser.Repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.project.kanbaniser.Exceptions.BadRequestException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Service
+@Transactional
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final TaskRepository taskRepository;
 
 
 	//liste des utilisateurs
@@ -31,6 +35,11 @@ public class UserService {
 		}
 
 		userRepository.save(user);
+	}
+
+	//ajouter tache a un utilisateur
+	public void addTaskToUser(int userId, int taskId) {
+
 	}
 
 	//modifier un utilisateur
