@@ -1,10 +1,13 @@
 package com.project.kanbaniser.Repositories;
 
+import com.project.kanbaniser.Entities.Board;
+import com.project.kanbaniser.Entities.Task;
 import com.project.kanbaniser.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +17,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
 	@Query("SELECT u FROM User u WHERE u.email = ?1")
 	Optional<Object> findByEmail(String email);
+
+
+	List<Board> getBoardsByUserId(int id);
+
+	List<Task> getTasksByUserId(int id);
 }

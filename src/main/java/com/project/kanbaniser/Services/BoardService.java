@@ -14,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class BoardService {
@@ -121,6 +123,22 @@ public class BoardService {
 
 		// Save the updated board
 		boardRepository.save(board);
+
+
+	}
+
+	//liste des utilisateurs du board
+	public List<User> getAllUsersInBoard(int boardId) {
+		Board board = boardRepository.findById(boardId)
+				.orElseThrow(() -> new BoardNotFoundException("Board not found with id: " + boardId));
+		return board.getMembers();
+	}
+
+	//liste des tasks du board
+	public List<Task> getAllTasksInBoard(int boardId) {
+		Board board = boardRepository.findById(boardId)
+				.orElseThrow(() -> new BoardNotFoundException("Board not found with id: " + boardId));
+		return board.getTasks();
 	}
 
 }

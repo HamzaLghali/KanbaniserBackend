@@ -74,4 +74,14 @@ public class UserService {
 		return (User) userRepository.findByEmail(email)
 				.orElseThrow(() -> new UserNotFoundException("User with email "+email+" does not exist"));
 	}
+
+	//rechercher les boards d'un utilisateur
+	public List<Board> getBoardsByUserId(int id) {
+		return userRepository.getBoardsByUserId(id);
+	}
+
+	//rechercher les tasks d'un utilisateur
+	public List<Task> getTasksByUserId(int id) {
+		return userRepository.getTasksByUserId(id);
+	}
 }
